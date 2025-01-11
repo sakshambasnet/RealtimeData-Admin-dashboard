@@ -5,6 +5,7 @@ import { useGetIdentity } from "@refinedev/core";
 import type { User } from "@/graphql/schema.types";
 import { Text } from "../text";
 import { SettingOutlined } from "@ant-design/icons";
+import { AccountSettings } from "./account-setting";
 
 const CurrentUser = () => {
   const { data: user } = useGetIdentity<User>();
@@ -20,7 +21,15 @@ const CurrentUser = () => {
       <Text strong style={{ padding: "12px 20px" }}>
         {user?.name}
       </Text>
-      <div>
+      <div
+        style={{
+          borderTop: "1px solid #d9d9d9",
+          padding: "12px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "4px",
+        }}
+      >
         <Button
           style={{ textAlign: "left" }}
           icon={<SettingOutlined />}
@@ -50,6 +59,9 @@ const CurrentUser = () => {
           style={{ cursor: "pointer" }}
         />
       </Popover>
+      {user && (
+        <AccountSettings opened={isOpen} setOpened={setIsOpen} userId={user.id} />
+      )}
     </>
   );
 };
